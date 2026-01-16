@@ -1,0 +1,26 @@
+#cloud-config
+users:
+  - name: yll
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCXenSTkM86liPFJZBDVzuySaw+Yen7o8eczEJokMiKHjCXPujKYZZLVsH7qcyIvIcFadtAtanfUL8zAUeTs7WfqWGXuZyhMzj9AwjAxryGNYTxyOXNGDeiGFIYCWaN4M9ucqR3OWIl5JPsJgdKslAM0sikqH2dXU61jmcZ3kxtkf75l3XTB0T8vfB7t5DSygmC+8nxbinx3PQv1fLt1qEsNvepF5pZEWOeO6ptjguD1VwZR+i9P2E6wu2xow/iWBVjcYHGyfyVc/KSl+R8R6nYjKvYSS/QJ88W0lx6uafXM+Ior1N8/twGH+Llbz+nHDuoU1lMPS2xHkUo2v61atvTcZL+haXz/cjDQ6fSly3EXQrBkxxiF+qsOsmwhQEm/f0Un53UFIcpYi2G0aJb7qsv2HBp0Xa0V6LNeFSWJ5hSYXGVN8eFxIEDiex6uz6N+35HYO2RXZhSQCw+abEMtV/ocmcuygILbVZARhpckVq2KLzXy035b/MBh5xWX3D25LpzOFyN17QBlbtELwQ//+W3ha5yILrvi4y/b7o7GxfG4HYAlkT0Wby+pn/ezpvZxbOwEs9YqHLqlE8nSCgO8XwyR4N8RNk7QeGB9zozcximHXQYdcRRRFk0wwq+W92BXWrzsqBmCoeXhvn+EC6jn2TBN5xtEK9O9vvqW+obuiklGQ== ylli8822@gmail.com
+    shell: /bin/bash
+
+package_update: true
+package_upgrade: true
+packages:
+  - git
+  - curl
+  - nginx
+  - docker.io
+  - docker-compose
+  - ufw
+
+runcmd:
+  - systemctl enable docker
+  - systemctl start docker
+  - mkdir -p /var/www/newerafestival.com
+  - ufw allow 22
+  - ufw allow 80
+  - ufw allow 443
+  - ufw --force enable
